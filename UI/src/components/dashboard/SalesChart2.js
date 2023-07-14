@@ -1,7 +1,7 @@
 import { Card, CardBody, CardSubtitle, CardTitle, Row, Col } from "reactstrap"
 import Chart from "react-apexcharts"
 
-const SalesChart = (props) => {
+const SalesChart2 = (props) => {
 	const data = props.data || []
 	const chartData = [
 		{ field: "Stored", value: data.filter((a) => a.Status === "Stored").length },
@@ -25,28 +25,16 @@ const SalesChart = (props) => {
 	const series = chartData.map((data) => data.value)
 
 	return (
-		<Card style={{ overflow: "auto", height: "500px" }}>
+		<Card>
 			<CardBody>
-				<CardTitle tag="h5">Document Summary</CardTitle>
+				<CardTitle tag="h5">Document Abstract</CardTitle>
 				<CardSubtitle className="text-muted" tag="h6">
-					Yearly Report
+					Annual Insights (per 100)
 				</CardSubtitle>
-				<div className="bg-primary text-white my-3 p-3 rounded">
-					<Row>
-						{chartData.map((data) => {
-							return (
-								<Col md="3">
-									<h6>{data.field}</h6>
-									<h4 className="mb-0 fw-bold">{data.value}</h4>
-								</Col>
-							)
-						})}
-					</Row>
-				</div>
-				<Chart options={options} series={series} type="donut" height="280" />
+				<Chart options={options} series={series} type="bar" height="280" />
 			</CardBody>
 		</Card>
 	)
 }
 
-export default SalesChart
+export default SalesChart2

@@ -21,16 +21,18 @@ const columns = [
 ]
 
 const ProjectTables = (props) => {
+	const tableData = props.data || []
 	useEffect(() => {
-		console.log(props.data)
-	});
+		console.log(tableData)
+	})
 	return (
 		<div>
 			<Card>
 				<CardBody>
 					<CardTitle tag="h5">Document Listing</CardTitle>
 					<CardSubtitle className="mb-2 text-muted" tag="h6">
-						Overview of the documents - {props.data.map((dt)=>dt.Creditor)}
+						Overview of the documents
+						{/* - {tableData.map((dt) => dt.Creditor).join(", ")} */}
 					</CardSubtitle>
 					<Table className="no-wrap mt-3 align-middle" responsive borderless>
 						<thead>
@@ -41,26 +43,28 @@ const ProjectTables = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{props.data.map((tableData, index) => (
-								<tr key={index} className="border-top">
-									<td>{tableData.Ticketid}</td>
-									<td>{tableData.Documentid}</td>
-									<td>{tableData.Dcoument_Type}</td>
-									<td>{tableData.Garnishee}</td>
-									<td>{tableData.Debtor}</td>
-									<td>{tableData.Creditor}</td>
-									<td>{tableData.Debtor_Bank}</td>
-									<td>{tableData.Debtor_Account}</td>
-									<td>{tableData.Creditor_Bank}</td>
-									<td>{tableData.Creditor_Account}</td>
-									<td>{tableData.Amount}</td>
-									<td>{tableData.Currency}</td>
-									<td>{tableData.Protection?"Yes":"No"}</td>
-									<td>{tableData.Status}</td>
-									<td>{tableData.DateTime.value}</td>
-									<td>{tableData.PDF_Document?"Available":"Unavailable"}</td>
-								</tr>
-							))}
+							{tableData
+								.filter((data) => data.Status !== "In Progress")
+								.map((tableData, index) => (
+									<tr key={index} className="border-top">
+										<td>{tableData.Ticketid}</td>
+										<td>{tableData.Documentid}</td>
+										<td>{tableData.Dcoument_Type}</td>
+										<td>{tableData.Garnishee}</td>
+										<td>{tableData.Debtor}</td>
+										<td>{tableData.Creditor}</td>
+										<td>{tableData.Debtor_Bank}</td>
+										<td>{tableData.Debtor_Account}</td>
+										<td>{tableData.Creditor_Bank}</td>
+										<td>{tableData.Creditor_Account}</td>
+										<td>{tableData.Amount}</td>
+										<td>{tableData.Currency}</td>
+										<td>{tableData.Protection ? "Yes" : "No"}</td>
+										<td>{tableData.Status}</td>
+										<td>{tableData.DateTime.value}</td>
+										<td>{tableData.PDF_Document ? "Available" : "Unavailable"}</td>
+									</tr>
+								))}
 						</tbody>
 					</Table>
 				</CardBody>
